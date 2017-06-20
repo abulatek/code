@@ -1,4 +1,4 @@
-def uvplot(sbfile,lbfile,binsize):
+def amp_uvdist(sbfile,lbfile,binsize):
     from astropy.io import fits
     import matplotlib.pyplot as plt
     import numpy as np
