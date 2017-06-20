@@ -1,0 +1,17 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.optimize import curve_fit
+
+fakedata = np.recfromtxt(fname)
+x = fakedata[:,0]
+y = fakedata[:,2]
+
+x = np.arange(0,5,0.1)
+y = np.sin(x)
+    
+plt.plot(x,y)
+
+def line(x, m, b):
+    return m * x + b
+
+popt, pcov = curve_fit(line, x, y)
