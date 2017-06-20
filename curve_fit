@@ -20,4 +20,5 @@ def best_fit(fname):
     plt.errorbar(x,y,yerr=uncertainty,fmt=None)
     xfine = np.linspace(0.,10.,10)
     plt.plot(xfine, line(xfine,params[0],params[1]),'r-')
+    # In the above line, instead of 'params[0],params[1]', you can do *params.
     plt.show()
