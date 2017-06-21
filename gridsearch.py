@@ -22,7 +22,5 @@ def grid_search(fname):
     for m in mrange:
         for b in brange:
             ymodel = m * x + b
-            k = redchi2(y,ymodel,sigma)
+            k = chi2(y,ymodel,sigma)
             values.append(k)
-    
-    print min(values)
