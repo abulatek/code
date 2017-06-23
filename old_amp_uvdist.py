@@ -128,22 +128,3 @@ def amp_uvdist(sbfile,lbfile,binsize):
 #    plt.title('Amplitude versus uv-distance')
 #    plt.grid(True)
 #    plt.show()
-
-###### ratio stuff
-    ampquot = ampsb/amplb
-    ampquoterr = ampquot*np.sqrt((amperrsb**2/ampsb**2)+(amperrlb**2/amplb**2))
-    plt.errorbar(newuvdist,ampquot,yerr=ampquoterr,fmt='.')
-    plt.xlabel('Distance from center of uv-plane (klambda)')
-    plt.ylabel('Short-baseline amplitude divided by long-baseline amplitude')
-    plt.title('Ratio of short/long baseline amplitudes versus uv-distance')
-    plt.grid(True)
-    plt.show()
-
-    x = newuvdist
-    y = ampquot
-    sigma = ampquoterr
-    ymodel = 1
-
-    def chisqr(y,ymodel,sigma):
-        chisqr = np.sum((y - ymodel)**2/sigma**2)
-        return chisqr
