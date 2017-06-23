@@ -1,5 +1,5 @@
 ###### In order to determine values to use for rangemin and rangemax,
-###### use ampuvdist.py to plot amp vs. uvdist and bound overlap.
+###### use amp_uvdist.py to plot amp vs. uvdist and bound overlap.
 
 def quotient(sbfile,lbfile,binsize,rangemin,rangemax):
     from astropy.io import fits
