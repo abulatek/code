@@ -3,28 +3,27 @@ def amp_uvdist(sbfile,lbfile,binsize):
     import matplotlib.pyplot as plt
     import numpy as np
     plt.clf()
-    filenames = [sbfile, lbfile]
-    
+    filenames = [sbfile,lbfile]
+
     for name in filenames:
         image = fits.open(name)
         u = image[0].data['UU']
         v = image[0].data['VV']
         u *= image[0].header['crval4']/1e3
         v *= image[0].header['crval4']/1e3
-        # plt.plot(u,v,'.')
-        
+#        plt.plot(u,v,'.')
+
         vis = image[0].data['data']
         real = (vis[:,0,0,0,:,0,0] + vis[:,0,0,0,:,1,0])/2.
+#        real = np.mean(real,axis=1)
         imag = (vis[:,0,0,0,:,0,1] + vis[:,0,0,0,:,1,1])/2.
-        inner = np.sqrt(u**2 + v**2) < 50
-        use = (real[inner,0] != 0.) & (imag[inner,0] != 0.)
-        # print 'avamp = {:0.3f}'.format(np.sqrt(real[inner,0][use].mean()**2 + imag[inner,0][use].mean()**2))
+#       imag = np.mean(imag,axis=1)
 
-        amp = np.sqrt(real**2 + imag**2)
-        amp = amp.squeeze()
+#        amp = np.sqrt(real**2 + imag**2)
+#        amp = amp.squeeze()
         uvdist = np.sqrt(u**2 + v**2)
-        # plt.plot(uvdist,amp,'.')
-        
+#        plt.plot(uvdist,amp,'.')
+
 ###### for binning!
 
         newuvdist = []
@@ -50,7 +49,7 @@ def amp_uvdist(sbfile,lbfile,binsize):
             imag2 = imag[uvsubarray][imagsubarray]
             imagav = np.mean(imag2)
             newimag.append(imagav)
-            
+
         newuvdist = np.asarray(newuvdist)
         newuvdist = newuvdist[~np.isnan(newuvdist)]
         r = np.asarray(newreal)
@@ -64,10 +63,10 @@ def amp_uvdist(sbfile,lbfile,binsize):
         iN = len(i)
 
         amperr = np.sqrt((rstdev**2/rN)*(r**2/(r**2+i**2))+(istdev**2/iN)*(i**2/(r**2+i**2)))
-        # plt.plot(newuvdist,newamp,'.')
+#        plt.plot(newuvdist,newamp,'.')
         plt.errorbar(newuvdist,newamp,yerr=amperr,fmt='.')
-
-###### error things
-
-#    quotient = amperrsb/amperrlb
-#    print quotient
+        plt.xlabel('Distance from center of uv-plane (klambda)')
+        plt.ylabel('Amplitude (Jy)')
+        plt.title('Amplitude versus uv-distance')
+        plt.grid(True)
+        plt.show()
