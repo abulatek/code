@@ -87,7 +87,6 @@ def trialsize(sbfile,lbfile,binsize):
         amperrs = amperrs[~np.isnan(amperrs)]
         amperrs = amperrs[np.nonzero(amperrs)]
 
-        plt.plot(newuvdist,newamp,'.')
         plt.errorbar(newuvdist,newamp,yerr=amperrs,fmt='.')
         plt.xlabel('Distance from center of uv-plane (klambda)')
         plt.ylabel('Amplitude (Jy)')
