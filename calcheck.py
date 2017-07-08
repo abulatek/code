@@ -6,7 +6,7 @@ import numpy as np
 ######              MWC480  range = [8, 160]
 ######                      PA = -34, incl = 36
 
-def final(sbfile,lbfile,rangemin,rangemax,pos_angle,incl,binsize,samples):
+def calcheck(sbfile,lbfile,rangemin,rangemax,pos_angle,incl,binsize,samples):
     plt.clf()
     filenames = [sbfile,lbfile]
     newuvdistances = []
