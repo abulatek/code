@@ -6,7 +6,7 @@ deserves much credit for the success of this code.
 
 The main features of this repository include
   -   calcheck.py, which calculates the amplitude offset between two ALMA visibilities, and
-  -   mcmc.py, which is an MCMC Metropolis-Hastings algorithm to calculate best-fit parameters for a protoplanetary disk.
+  -   mcmc.py, which is an MCMC Metropolis-Hastings algorithm to calculate (linear) best-fit parameters for a data set.
 
 Thanks much, and I hope that this might help someone at some point (but there are programs built-in to CASA and Miriad that
 do what these codes do!).
