@@ -14,6 +14,7 @@ def calcheck(sbfile,lbfile,rangemin,rangemax,pos_angle,incl,binsize,samples):
     errors = []
 
     for name in filenames:
+###### Extract useful variables from the FITS file.
         image = fits.open(name)
         u = image[0].data['UU']
         v = image[0].data['VV']
@@ -30,13 +31,13 @@ def calcheck(sbfile,lbfile,rangemin,rangemax,pos_angle,incl,binsize,samples):
         amp = amp.squeeze()
         uvdist = np.sqrt(u**2 + v**2)
 
-###### deprojected uv-distances
+###### Calculate deprojected uv-distances.
         phi = np.radians(np.degrees(np.arctan2(v,u)) - pos_angle)
         da = uvdist*np.sin(phi)
         db = uvdist*np.cos(phi)*np.cos(np.radians(incl))
         deprojuvdist = np.sqrt(da**2 + db**2)
 
-###### calibration binning
+###### Bin for the calibration check with a set range of 10-900 klambda.
         newuvdist = []
         newreal = []
         newimag = []
@@ -78,10 +79,11 @@ def calcheck(sbfile,lbfile,rangemin,rangemax,pos_angle,incl,binsize,samples):
 
         newuvdist = np.asarray(newuvdist)
         newuvdist = newuvdist[~np.isnan(newuvdist)]
+###### This next line removes uv-distances I generated that aren't useful.
         newuvdist = [i for i in newuvdist if i <= max(deprojuvdist)]
         rilength = len(newuvdist)
         newuvdist = np.asarray(newuvdist)
-
+###### These lines impose a uniform structure so plotting works later.
         r = newreal[:rilength]
         r = np.asarray(r)
         i = newimag[:rilength]
@@ -101,7 +103,7 @@ def calcheck(sbfile,lbfile,rangemin,rangemax,pos_angle,incl,binsize,samples):
         plt.title('Amplitude versus deprojected uv-distance')
         plt.grid(True)
 
-###### ratio binning
+###### Bin for the amplitude ratio separately so we can specify a range of uv-distances.
         newuvdist = []
         newreal = []
         newimag = []
@@ -154,7 +156,7 @@ def calcheck(sbfile,lbfile,rangemin,rangemax,pos_angle,incl,binsize,samples):
         amperrs = np.asarray(amperrs)
         errors.append(amperrs)
 
-###### ratio stuff
+###### Calculate the ratio between the amplitude arrays.
     remove = (np.isnan(r)) & (np.isnan(i))
     newuvdist = newuvdistances[1][~remove]
     newampsb = newamplitudes[0][~remove]
@@ -190,7 +192,7 @@ def calcheck(sbfile,lbfile,rangemin,rangemax,pos_angle,incl,binsize,samples):
     print "chi squared =",chisqr(y,ymodel,sigma)
     print "reduced chi squared =",redchisqr(y,ymodel,sigma)
 
-###### grid search for ratio
+###### Perform a grid search to find a representative ratio.
     brange = np.linspace(0.8,1.4,num=samples)
     values = []
     for b in brange:
