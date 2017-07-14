@@ -3,6 +3,6 @@ This repository is evidence of my attempt to learn how Python works. I have writ
 
 The main features of this repository are
   -   calcheck.py, which calculates the amplitude offset between two ALMA visibilities, and
-  -   mcmc.py, which is an MCMC Metropolis-Hastings algorithm to calculate (linear) best-fit parameters for a data set.
+  -   mh.py, which is an MCMC Metropolis-Hastings algorithm to calculate (linear) best-fit parameters for a data set.
 
 Thanks much, and I hope that this might help someone at some point (but there are programs built-in to CASA and Miriad that do what these codes do!).
